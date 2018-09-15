@@ -9,8 +9,8 @@
         <module name="Project-MSA" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Project-MSA" target="1.5" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="Project-MSA" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
