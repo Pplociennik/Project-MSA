@@ -4,7 +4,7 @@ import users.Profile;
 
 import java.util.ArrayList;
 
-import app.Error;
+import app.ConsoleService;
 
 public class Week {
 
@@ -38,24 +38,24 @@ public class Week {
                 this.listOne.add(new Product(productName, productPrize));
                 this.listOneActualValue += productPrize;
             } else {
-                Error.showError("Zbyt drogie!");
+                ConsoleService.showError("Zbyt drogie!");
             }
         } else if (productCategory.equals(userProfile.getListTwoName())) {
             if (listTwoMAX > listTwoActualValue + productPrize) {
                 this.listTwo.add(new Product(productName, productPrize));
                 this.listTwoActualValue += productPrize;
             } else {
-                Error.showError("Zbyt drogie!");
+                ConsoleService.showError("Zbyt drogie!");
             }
         } else if (productCategory.equals(userProfile.getListThreeName())) {
             if (listThreeMAX > listThreeActualValue + productPrize) {
                 this.listThree.add(new Product(productName, productPrize));
                 this.listThreeActualValue += productPrize;
             } else {
-                Error.showError("Zbyt drogie!");
+                ConsoleService.showError("Zbyt drogie!");
             }
         } else {
-            Error.showError("Nie ma takiej kategorii!");
+            ConsoleService.showError("Nie ma takiej kategorii!");
         }
     }
 
@@ -67,7 +67,7 @@ public class Week {
         } else if (userProfile.getListThreeName().equals(category)) {
             this.listThree.remove(index);
         } else {
-            Error.showError("Nie ma takiej kategorii!");
+            ConsoleService.showError("Nie ma takiej kategorii!");
         }
     }
 

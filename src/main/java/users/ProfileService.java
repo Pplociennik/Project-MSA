@@ -8,11 +8,15 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileService {
 
-    public ProfileService() {
+    private ArrayList<String> profiles;
 
+    public ProfileService() {
+        profiles = new ArrayList<String>();
     }
 
     public void saveProfile(Profile userProfile) throws IOException {
@@ -21,14 +25,55 @@ public class ProfileService {
         mapper.writeValue(new File(userProfile.getProfileName() + ".json"), userProfile);
     }
 
-    public void readProfile(Profile userProfile) {
+    public Profile readProfile(String profileName) {
         ObjectMapper mapper = new ObjectMapper();
+        Profile chosenProfile = new Profile(profileName);
 
         try {
-            mapper.readValue(userProfile.getProfileName() + ".json", new TypeReference<Profile>() {
+            chosenProfile = mapper.readValue(new File(profileName), new TypeReference<Profile>() {
             });
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return chosenProfile;
+    }
+
+    public void saveProfilesList() {
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            mapper.writeValue(new File("profiles.json"), profiles);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void readProfilesList() {
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            this.profiles = mapper.readValue(new File("profiles.json"), new TypeReference<ArrayList<String>>() {} );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void createNewProfile(String profileName) {
+        Profile profile = new Profile(profileName);
+        profiles.add(profile.getProfileName());
+        try {
+            saveProfile(profile);
+            saveProfilesList();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeProfile(int index) {
+        this.profiles.remove(index);
+        this.saveProfilesList();
+    }
+
+    public ArrayList<String> getProfiles() {
+        return profiles;
     }
 }
