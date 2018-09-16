@@ -39,7 +39,7 @@ public class ApplicationConsoleController {
             System.out.println(i + ". " + profileService.getProfiles().get(i));
         }
 
-        System.out.println("\n99. Stwórz nowy profil \n100. Usun profil\n\nWybór: ");
+        System.out.println("\n99. Stwórz nowy profil \n100. Usun profil \n101. Wyjscie \n\nWybór: ");
         choose = entry.nextInt();
 
         switch(choose) {
@@ -57,6 +57,8 @@ public class ApplicationConsoleController {
                 profileService.removeProfile(deleteChoose);
                 profilesMenu();
                 break;
+            case 101:
+                System.exit(0);
             default:
                 ConsoleService.cleanConsole();
                 if(!profileService.getProfiles().isEmpty()) {
@@ -73,19 +75,22 @@ public class ApplicationConsoleController {
 
         System.out.println("ZALOGOWANO: " + userChosenProfile.getProfileName() + "\n\n\n");
 
-        if(userChosenProfile.getHistoryOfPeriods().isEmpty()) {System.out.println("1. Zrob pierwszy krok w strone oszczedzania!");}
-        else {System.out.println("1. Wznów uzupełnianie swojej listy");}
+        if(userChosenProfile.getHistoryOfPeriods().isEmpty()) {System.out.println("1. Zrob pierwszy krok w strone oszczedzania! [niedostepne]");}
+        else {System.out.println("1. Wznów uzupełnianie swojej listy [niedostepne]");}
 
         System.out.println("2. Wyświetl historię [niedostępne]");
         System.out.println("3. Ustawienia profilu [niedostępne]\n\n");
 
-        System.out.println("4. Wyloguj profil \n5. Wyscie \n Wybór: ");
+        System.out.println("4. Wyloguj profil \n5. Wyjście \n Wybór: ");
 
         int choose = entry.nextInt();
 
         switch(choose) {
             case 5:
                 System.exit(0);
+                break;
+            case 4:
+                profilesMenu();
                 break;
         }
     }
