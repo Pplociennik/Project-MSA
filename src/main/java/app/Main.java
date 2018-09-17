@@ -11,6 +11,10 @@ public class Main {
     public static void main(String[] args) {
         ProfileService profileService = new ProfileService();
         ApplicationConsoleController app = new ApplicationConsoleController();
-        app.profilesMenu();
+        try {
+            app.profilesMenu();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

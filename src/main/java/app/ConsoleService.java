@@ -9,8 +9,8 @@ public class ConsoleService {
     }
 
     public static void cleanConsole() {
-        for(int i=0; i<20; i++) {
-            System.out.println();
+        for(int i=0; i<100; i++) {
+            System.out.println("\b");
         }
     }
 }

@@ -21,6 +21,8 @@ public class Week {
     private double listTwoActualValue;
     private double listThreeActualValue;
 
+    private double actualSpendings;
+
     public Week(Profile userProfile) {
         this.listOne = new ArrayList<Product>();
         this.listTwo = new ArrayList<Product>();
@@ -30,6 +32,8 @@ public class Week {
         this.listOneActualValue = 0.0;
         this.listTwoActualValue = 0.0;
         this.listThreeActualValue = 0.0;
+
+        this.actualSpendings = 0.0;
     }
 
     public void addProductToList(Profile userProfile, String productName, double productPrize, String productCategory) {
@@ -60,12 +64,27 @@ public class Week {
     }
 
     public void removeProductFromList(Profile userProfile, String category, int index) {
+        if (index < 0) {
+            ConsoleService.showError("Zły numer!");
+        }
         if (userProfile.getListOneName().equals(category)) {
-            this.listOne.remove(index);
+            if (index <= listOne.size()) {
+                this.listOne.remove(index);
+            } else {
+                ConsoleService.showError("Zły numer!");
+            }
         } else if (userProfile.getListTwoName().equals(category)) {
-            this.listTwo.remove(index);
+            if (index <= listTwo.size()) {
+                this.listTwo.remove(index);
+            } else {
+                ConsoleService.showError("Zły numer!");
+            }
         } else if (userProfile.getListThreeName().equals(category)) {
-            this.listThree.remove(index);
+            if (index <= listThree.size()) {
+                this.listThree.remove(index);
+            } else {
+                ConsoleService.showError("Zły numer!");
+            }
         } else {
             ConsoleService.showError("Nie ma takiej kategorii!");
         }
@@ -121,5 +140,25 @@ public class Week {
 
     public void setListThreeActualValue(double listThreeActualValue) {
         this.listThreeActualValue = listThreeActualValue;
+    }
+
+    public ArrayList<Product> getListOne() {
+        return listOne;
+    }
+
+    public ArrayList<Product> getListTwo() {
+        return listTwo;
+    }
+
+    public ArrayList<Product> getListThree() {
+        return listThree;
+    }
+
+    public double getActualSpendings() {
+        return actualSpendings;
+    }
+
+    public void setActualSpendings(double actualSpendings) {
+        this.actualSpendings = actualSpendings;
     }
 }

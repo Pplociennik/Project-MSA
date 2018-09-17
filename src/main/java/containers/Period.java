@@ -20,6 +20,12 @@ public class Period {
         this.weekDone = new boolean[length];
         this.periodName = "Okres " + presentWeekNumber;
         this.presentWeekNumber = 0;
+
+        for (int i = 0; i < length; i++) {
+            weeks[i] = new Week(userProfile);
+        }
+
+        userProfile.getHistoryOfPeriods().add(this);
     }
 
     public void calculateNewPeriodFunds(Profile userProfile, double income) {
@@ -53,5 +59,17 @@ public class Period {
 
     public boolean[] getWeekDone() {
         return weekDone;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public double getPeriodIncome() {
+        return periodIncome;
+    }
+
+    public double getWeeklyBudget() {
+        return weeklyBudget;
     }
 }
