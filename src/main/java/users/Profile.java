@@ -53,6 +53,9 @@ public class Profile {
         this.walletCalculationType = "%";
     }
 
+    public Profile() {
+    }
+
     public void incrementPeriodsCounter() {
         this.periodsCounter++;
     }
@@ -121,5 +124,59 @@ public class Profile {
         this.wallet = wallet;
     }
 
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
+    }
 
+    public void setPeriodsCounter(int periodsCounter) {
+        this.periodsCounter = periodsCounter;
+    }
+
+    public void setWeeksCounter(int weeksCounter) {
+        this.weeksCounter = weeksCounter;
+    }
+
+    public void setProductsCounter(int productsCounter) {
+        this.productsCounter = productsCounter;
+    }
+
+    public void setHistoryOfPeriods(ArrayList<Period> historyOfPeriods) {
+        this.historyOfPeriods = historyOfPeriods;
+    }
+
+    public void setListOneName(String listOneName) {
+        this.listOneName = listOneName;
+    }
+
+    public void setListTwoName(String listTwoName) {
+        this.listTwoName = listTwoName;
+    }
+
+    public void setListThreeName(String listThreeName) {
+        this.listThreeName = listThreeName;
+    }
+
+    public void setListOnePercentage(double listOnePercentage) {
+        this.listOnePercentage = listOnePercentage;
+    }
+
+    public void setListTwoPercentage(double listTwoPercentage) {
+        this.listTwoPercentage = listTwoPercentage;
+    }
+
+    public void setListThreePercentage(double listThreePercentage) {
+        this.listThreePercentage = listThreePercentage;
+    }
+
+    public void setWalletPercentage(double walletPercentage) {
+        this.walletPercentage = walletPercentage;
+    }
+
+    public void setWalletFreeValue(double walletFreeValue) {
+        this.walletFreeValue = walletFreeValue;
+    }
+
+    public void setWalletCalculationType(String walletCalculationType) {
+        this.walletCalculationType = walletCalculationType;
+    }
 }

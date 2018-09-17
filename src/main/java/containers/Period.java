@@ -57,8 +57,8 @@ public class Period {
         return periodName;
     }
 
-    public boolean[] getWeekDone() {
-        return weekDone;
+    public boolean getWeekDone(int index) {
+        return weekDone[index];
     }
 
     public int getLength() {
@@ -73,5 +73,27 @@ public class Period {
         return weeklyBudget;
     }
 
+    public Week getWeek(int index) {
+        return weeks[index];
+    }
 
+    public void setWeeks(Week[] weeks) {
+        this.weeks = weeks;
+    }
+
+    public void setWeekDone(boolean[] weekDone) {
+        this.weekDone = weekDone;
+    }
+
+    public Week[] getWeeks() {
+        return weeks;
+    }
+
+    public boolean[] getWeekDone() {
+        return weekDone;
+    }
+
+    public int getPresentWeekNumber() {
+        return presentWeekNumber;
+    }
 }
