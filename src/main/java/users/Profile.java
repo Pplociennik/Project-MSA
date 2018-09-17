@@ -53,6 +53,10 @@ public class Profile {
         this.walletCalculationType = "%";
     }
 
+    public void incrementPeriodsCounter() {
+        this.periodsCounter++;
+    }
+
     public int getPeriodsCounter() {
         return periodsCounter;
     }
@@ -116,4 +120,6 @@ public class Profile {
     public void setWallet(double wallet) {
         this.wallet = wallet;
     }
+
+
 }

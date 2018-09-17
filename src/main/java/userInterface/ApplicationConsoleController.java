@@ -85,6 +85,8 @@ public class ApplicationConsoleController {
 
         System.out.println("ZALOGOWANO: " + userChosenProfile.getProfileName() + "\n\n\n");
 
+       this.userChosenProfile =  profileService.readProfile(this.userChosenProfile.getProfileName());
+
         if (userChosenProfile.getHistoryOfPeriods().isEmpty()) {
             System.out.println("1. Zrob pierwszy krok w strone oszczedzania! [w trakcie testów]");
         } else {
@@ -119,6 +121,7 @@ public class ApplicationConsoleController {
 
                     this.userChosenProfile.getHistoryOfPeriods().add(new Period(weeks, userChosenProfile));
                     this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).calculateNewPeriodFunds(userChosenProfile, income);
+                    this.userChosenProfile.incrementPeriodsCounter();
                     profileService.saveProfile(this.userChosenProfile);
                     weekScreen();
                 } else {

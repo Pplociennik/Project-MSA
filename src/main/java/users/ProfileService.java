@@ -30,7 +30,7 @@ public class ProfileService {
         Profile chosenProfile = new Profile(profileName);
 
         try {
-            chosenProfile = mapper.readValue(new File(profileName), new TypeReference<Profile>() {
+            chosenProfile = mapper.readValue(new File(profileName + ".json"), new TypeReference<Profile>() {
             });
         } catch (IOException e) {
             e.printStackTrace();

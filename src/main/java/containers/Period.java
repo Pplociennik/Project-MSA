@@ -72,4 +72,6 @@ public class Period {
     public double getWeeklyBudget() {
         return weeklyBudget;
     }
+
+
 }

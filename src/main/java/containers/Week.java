@@ -161,4 +161,6 @@ public class Week {
     public void setActualSpendings(double actualSpendings) {
         this.actualSpendings = actualSpendings;
     }
+
+
 }
