@@ -42,7 +42,7 @@ public class ProfileService {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            objectMapper.writeValue(new File(tempProfile.getProfileName() + ".json"), tempProfile);
+            objectMapper.writeValue(new File(tempProfile.getProfileName() + ".json"), userProfile);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,12 +68,20 @@ public class ProfileService {
         ArrayList<Week> weeks = new ArrayList<Week>();
         ArrayList<Boolean> weekDOne = new ArrayList<Boolean>();
 
-        if (userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getWeeks().length > 0) {
-            for (int i = 0; i <= userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getWeeks().length; i++) {
-                weeks.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getWeek(i));
-                weekDOne.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getWeekDone(i));
+        if (!userProfile.isHistoryOfPeriodsEmpty()) {
+            if (!userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).isWeeksEmpty()) {
+
+                for (int i = 0; i <= userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getWeeks().length; i++) {
+                    weeks.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getWeek(i));
+                    weekDOne.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getWeekDone(i));
+                }
+            } else {
+                System.out.println("Pusta lista tygodni w okresie!");
             }
+        } else {
+            System.out.println("Pusty kontener okresów!");
         }
+
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -95,16 +103,25 @@ public class ProfileService {
         ArrayList<Product> listTwo = new ArrayList<Product>();
         ArrayList<Product> listThree = new ArrayList<Product>();
 
-        for (int i = 0; i < userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListOne().size(); i++) {
-            listOne.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListOne().get(i));
-        }
+        if (!userProfile.isHistoryOfPeriodsEmpty()) {
+            if (!userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).isWeeksEmpty()) {
 
-        for (int i = 0; i < userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListTwo().size(); i++) {
-            listTwo.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListTwo().get(i));
-        }
+                for (int i = 0; i < userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListOne().size(); i++) {
+                    listOne.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListOne().get(i));
+                }
 
-        for (int i = 0; i < userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListThree().size(); i++) {
-            listThree.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListThree().get(i));
+                for (int i = 0; i < userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListTwo().size(); i++) {
+                    listTwo.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListTwo().get(i));
+                }
+
+                for (int i = 0; i < userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListThree().size(); i++) {
+                    listThree.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListThree().get(i));
+                }
+            } else {
+                System.out.println("Pusta lista tygodni w okresie!");
+            }
+        } else {
+            System.out.println("Pusty kontener okresów!");
         }
 
         ObjectMapper mapper = new ObjectMapper();
@@ -138,7 +155,7 @@ public class ProfileService {
         if (!userProfile.getHistoryOfPeriods().isEmpty()) {
             saveProfileHistory(userProfile);
         }
-            saveProfileActualPeriodWeeks(userProfile);
+        saveProfileActualPeriodWeeks(userProfile);
         saveProfileActualWeekLists(userProfile);
     }
 

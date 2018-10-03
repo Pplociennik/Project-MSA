@@ -104,4 +104,15 @@ public class Period {
     public int getPresentWeekNumber() {
         return presentWeekNumber;
     }
+
+    public boolean isWeeksEmpty() {
+        boolean status;
+        if (this.weeks.length == 0) {
+            status = true;
+        } else {
+            status = false;
+        }
+
+        return status;
+    }
 }

@@ -144,6 +144,17 @@ public class Profile {
         this.historyOfPeriods = historyOfPeriods;
     }
 
+    public boolean isHistoryOfPeriodsEmpty() {
+        boolean status;
+        if (this.historyOfPeriods.isEmpty()) {
+            status = true;
+        } else {
+            status = false;
+        }
+
+        return status;
+    }
+
     public void setListOneName(String listOneName) {
         this.listOneName = listOneName;
     }
