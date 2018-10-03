@@ -89,6 +89,14 @@ public class Period {
         return weeks;
     }
 
+    public void addWeek(int index, Week week) {
+        this.weeks[index] = week;
+    }
+
+    public void addWeekDone(int index, Boolean bool) {
+        weekDone[index] = bool;
+    }
+
     public boolean[] getWeekDone() {
         return weekDone;
     }

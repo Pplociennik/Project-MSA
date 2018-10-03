@@ -162,5 +162,17 @@ public class Week {
         this.actualSpendings = actualSpendings;
     }
 
+    public void addToListOne(Product product) {
+        this.listOne.add(product);
+    }
+
+    public void addToListTwo(Product product) {
+        this.listTwo.add(product);
+    }
+
+    public void addToListThree(Product product) {
+        this.listThree.add(product);
+    }
+
 
 }

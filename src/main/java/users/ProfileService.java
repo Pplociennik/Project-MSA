@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import containers.Period;
+import containers.Product;
 import containers.Week;
 
 import java.io.File;
@@ -51,7 +52,7 @@ public class ProfileService {
     private void saveProfileHistory(Profile userProfile) {
         ArrayList<Period> periods = new ArrayList<Period>();
 
-        for (int i = 0; i <= userProfile.getHistoryOfPeriods().size(); i++) {
+        for (int i = 0; i < userProfile.getHistoryOfPeriods().size(); i++) {
             periods.add(userProfile.getHistoryOfPeriods().get(i));
         }
 
@@ -67,9 +68,11 @@ public class ProfileService {
         ArrayList<Week> weeks = new ArrayList<Week>();
         ArrayList<Boolean> weekDOne = new ArrayList<Boolean>();
 
-        for (int i = 0; i <= userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getWeeks().length; i++) {
-            weeks.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getWeek(i));
-            weekDOne.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getWeekDone(i));
+        if (userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getWeeks().length > 0) {
+            for (int i = 0; i <= userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getWeeks().length; i++) {
+                weeks.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getWeek(i));
+                weekDOne.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getWeekDone(i));
+            }
         }
 
         ObjectMapper mapper = new ObjectMapper();
@@ -88,13 +91,144 @@ public class ProfileService {
     }
 
     private void saveProfileActualWeekLists(Profile userProfile) {
+        ArrayList<Product> listOne = new ArrayList<Product>();
+        ArrayList<Product> listTwo = new ArrayList<Product>();
+        ArrayList<Product> listThree = new ArrayList<Product>();
+
+        for (int i = 0; i < userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListOne().size(); i++) {
+            listOne.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListOne().get(i));
+        }
+
+        for (int i = 0; i < userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListTwo().size(); i++) {
+            listTwo.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListTwo().get(i));
+        }
+
+        for (int i = 0; i < userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListThree().size(); i++) {
+            listThree.add(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getListThree().get(i));
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            mapper.writeValue(new File(userProfile.getProfileName() + "_listOne.json"), listOne);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            mapper.writeValue(new File(userProfile.getProfileName() + "_listTwo.json"), listTwo);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            mapper.writeValue(new File(userProfile.getProfileName() + "_listThree.json"), listThree);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
     public void saveProfile(Profile userProfile) throws IOException {
+//        ObjectMapper mapper = new ObjectMapper();
+//
+//        mapper.writeValue(new File(userProfile.getProfileName() + ".json"), userProfile);
+
+        saveProfileSettings(userProfile);
+        if (!userProfile.getHistoryOfPeriods().isEmpty()) {
+            saveProfileHistory(userProfile);
+        }
+            saveProfileActualPeriodWeeks(userProfile);
+        saveProfileActualWeekLists(userProfile);
+    }
+
+    private void readProfileHistory(String profileName, Profile profile) {
         ObjectMapper mapper = new ObjectMapper();
 
-        mapper.writeValue(new File(userProfile.getProfileName() + ".json"), userProfile);
+        ArrayList<Period> periods = new ArrayList<Period>();
+
+
+        try {
+            periods = mapper.readValue(new File(profileName + "_Periods.json"), new TypeReference<ArrayList<Period>>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i <= periods.size(); i++) {
+            profile.getHistoryOfPeriods().add(periods.get(i));
+        }
+
+
+    }
+
+    private void readProfileActualPeriodWeeks(String profileName, Profile profile) {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        ArrayList<Week> weeks = new ArrayList<Week>();
+        ArrayList<Boolean> weekDone = new ArrayList<Boolean>();
+
+        try {
+            weeks = mapper.readValue(new File(profileName + "_Weeks.json"), new TypeReference<ArrayList<Week>>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            weekDone = mapper.readValue(new File(profileName + "_weekDone.json"), new TypeReference<ArrayList<Boolean>>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i <= weeks.size(); i++) {
+            profile.getHistoryOfPeriods().get(profile.getPeriodsCounter()).addWeek(i, weeks.get(i));
+        }
+
+        for (int i = 0; i <= weekDone.size(); i++) {
+            profile.getHistoryOfPeriods().get(profile.getPeriodsCounter()).addWeekDone(i, weekDone.get(i));
+        }
+    }
+
+    private void readProfileActualWeekLists(String profileName, Profile profile) {
+        ArrayList<Product> listOne = new ArrayList<Product>();
+        ArrayList<Product> listTwo = new ArrayList<Product>();
+        ArrayList<Product> listThree = new ArrayList<Product>();
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        try {
+            listOne = mapper.readValue(new File(profileName + "_listOne.json"), new TypeReference<ArrayList<Product>>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            listTwo = mapper.readValue(new File(profileName + "_listTwo.json"), new TypeReference<ArrayList<Product>>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            listThree = mapper.readValue(new File(profileName + "_listThree.json"), new TypeReference<ArrayList<Product>>() {
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i <= listOne.size(); i++) {
+            profile.getHistoryOfPeriods().get(profile.getPeriodsCounter()).getPresentWeek().addToListOne(listOne.get(i));
+        }
+        for (int i = 0; i <= listTwo.size(); i++) {
+            profile.getHistoryOfPeriods().get(profile.getPeriodsCounter()).getPresentWeek().addToListTwo(listTwo.get(i));
+        }
+        for (int i = 0; i <= listThree.size(); i++) {
+            profile.getHistoryOfPeriods().get(profile.getPeriodsCounter()).getPresentWeek().addToListThree(listThree.get(i));
+        }
     }
 
     public Profile readProfile(String profileName) {
@@ -110,7 +244,7 @@ public class ProfileService {
         }
 
         chosenProfile.setWallet(tempChosenProfile.getWallet());
-        chosenProfile.setHistoryOfPeriods(tempChosenProfile.getHistoryOfPeriods());
+        // chosenProfile.setHistoryOfPeriods(tempChosenProfile.getHistoryOfPeriods());
         chosenProfile.setListOneName(tempChosenProfile.getListOneName());
         chosenProfile.setListOnePercentage(tempChosenProfile.getListOnePercentage());
         chosenProfile.setListThreeName(tempChosenProfile.getListThreeName());
@@ -124,6 +258,10 @@ public class ProfileService {
         chosenProfile.setWalletFreeValue(tempChosenProfile.getWalletFreeValue());
         chosenProfile.setWalletPercentage(tempChosenProfile.getWalletPercentage());
         chosenProfile.setWeeksCounter(tempChosenProfile.getWeeksCounter());
+
+        readProfileHistory(profileName, chosenProfile);
+        readProfileActualPeriodWeeks(profileName, chosenProfile);
+        readProfileActualWeekLists(profileName, chosenProfile);
         return chosenProfile;
     }
 
