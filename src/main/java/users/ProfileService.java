@@ -172,7 +172,7 @@ public class ProfileService {
             e.printStackTrace();
         }
 
-        for (int i = 0; i <= periods.size(); i++) {
+        for (int i = 0; i < periods.size(); i++) {
             profile.getHistoryOfPeriods().add(periods.get(i));
         }
 
@@ -200,11 +200,11 @@ public class ProfileService {
             e.printStackTrace();
         }
 
-        for (int i = 0; i <= weeks.size(); i++) {
+        for (int i = 0; i < weeks.size(); i++) {
             profile.getHistoryOfPeriods().get(profile.getPeriodsCounter()).addWeek(i, weeks.get(i));
         }
 
-        for (int i = 0; i <= weekDone.size(); i++) {
+        for (int i = 0; i < weekDone.size(); i++) {
             profile.getHistoryOfPeriods().get(profile.getPeriodsCounter()).addWeekDone(i, weekDone.get(i));
         }
     }
@@ -237,13 +237,13 @@ public class ProfileService {
             e.printStackTrace();
         }
 
-        for (int i = 0; i <= listOne.size(); i++) {
+        for (int i = 0; i < listOne.size(); i++) {
             profile.getHistoryOfPeriods().get(profile.getPeriodsCounter()).getPresentWeek().addToListOne(listOne.get(i));
         }
-        for (int i = 0; i <= listTwo.size(); i++) {
+        for (int i = 0; i < listTwo.size(); i++) {
             profile.getHistoryOfPeriods().get(profile.getPeriodsCounter()).getPresentWeek().addToListTwo(listTwo.get(i));
         }
-        for (int i = 0; i <= listThree.size(); i++) {
+        for (int i = 0; i < listThree.size(); i++) {
             profile.getHistoryOfPeriods().get(profile.getPeriodsCounter()).getPresentWeek().addToListThree(listThree.get(i));
         }
     }
