@@ -166,8 +166,9 @@ public class ProfileService {
 
 
         try {
+            if(new File(profileName + "_Periods.json").exists()) {
             periods = mapper.readValue(new File(profileName + "_Periods.json"), new TypeReference<ArrayList<Period>>() {
-            });
+            });}
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -187,15 +188,19 @@ public class ProfileService {
         ArrayList<Boolean> weekDone = new ArrayList<Boolean>();
 
         try {
-            weeks = mapper.readValue(new File(profileName + "_Weeks.json"), new TypeReference<ArrayList<Week>>() {
-            });
+            if (new File(profileName + "_Weeks.json").exists()) {
+                weeks = mapper.readValue(new File(profileName + "_Weeks.json"), new TypeReference<ArrayList<Week>>() {
+                });
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            weekDone = mapper.readValue(new File(profileName + "_weekDone.json"), new TypeReference<ArrayList<Boolean>>() {
-            });
+            if (new File(profileName + "_weekDone.json").exists()) {
+                weekDone = mapper.readValue(new File(profileName + "_weekDone.json"), new TypeReference<ArrayList<Boolean>>() {
+                });
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -217,22 +222,29 @@ public class ProfileService {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            listOne = mapper.readValue(new File(profileName + "_listOne.json"), new TypeReference<ArrayList<Product>>() {
-            });
+            if (new File(profileName + "_listOne.json").exists()) {
+                listOne = mapper.readValue(new File(profileName + "_listOne.json"), new TypeReference<ArrayList<Product>>() {
+                });
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            listTwo = mapper.readValue(new File(profileName + "_listTwo.json"), new TypeReference<ArrayList<Product>>() {
-            });
+            if (new File(profileName + "_listTwo.json").exists()) {
+                listTwo = mapper.readValue(new File(profileName + "_listTwo.json"), new TypeReference<ArrayList<Product>>() {
+                });
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         try {
-            listThree = mapper.readValue(new File(profileName + "_listThree.json"), new TypeReference<ArrayList<Product>>() {
-            });
+            if (new File(profileName + "_listThree.json").exists()) {
+                listThree = mapper.readValue(new File(profileName + "_listThree.json"), new TypeReference<ArrayList<Product>>() {
+
+                });
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -276,7 +288,7 @@ public class ProfileService {
         chosenProfile.setWalletPercentage(tempChosenProfile.getWalletPercentage());
         chosenProfile.setWeeksCounter(tempChosenProfile.getWeeksCounter());
 
-        readProfileHistory(profileName, chosenProfile);
+//        readProfileHistory(profileName, chosenProfile);
         readProfileActualPeriodWeeks(profileName, chosenProfile);
         readProfileActualWeekLists(profileName, chosenProfile);
         return chosenProfile;

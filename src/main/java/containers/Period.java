@@ -89,6 +89,10 @@ public class Period {
         return weeks;
     }
 
+    public int getWeeksLength() {
+        return weeks.length;
+    }
+
     public void addWeek(int index, Week week) {
         this.weeks[index] = week;
     }
