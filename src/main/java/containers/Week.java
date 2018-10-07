@@ -37,21 +37,21 @@ public class Week {
     }
 
     public void addProductToList(Profile userProfile, String productName, double productPrize, String productCategory) {
-        if (productCategory.equals(userProfile.getListOneName())) {
+        if (productCategory.toUpperCase().equals(userProfile.getListOneName().toUpperCase())) {
             if (listOneMAX > listOneActualValue + productPrize) {
                 this.listOne.add(new Product(productName, productPrize));
                 this.listOneActualValue += productPrize;
             } else {
                 ConsoleService.showError("Zbyt drogie!");
             }
-        } else if (productCategory.equals(userProfile.getListTwoName())) {
+        } else if (productCategory.toUpperCase().equals(userProfile.getListTwoName().toUpperCase())) {
             if (listTwoMAX > listTwoActualValue + productPrize) {
                 this.listTwo.add(new Product(productName, productPrize));
                 this.listTwoActualValue += productPrize;
             } else {
                 ConsoleService.showError("Zbyt drogie!");
             }
-        } else if (productCategory.equals(userProfile.getListThreeName())) {
+        } else if (productCategory.toUpperCase().equals(userProfile.getListThreeName().toUpperCase())) {
             if (listThreeMAX > listThreeActualValue + productPrize) {
                 this.listThree.add(new Product(productName, productPrize));
                 this.listThreeActualValue += productPrize;
@@ -60,6 +60,22 @@ public class Week {
             }
         } else {
             ConsoleService.showError("Nie ma takiej kategorii!");
+        }
+    }
+
+    public void addWalletElement(Profile userProfile, String productName, double productPrize, String productCategory) {
+        if (productPrize < userProfile.getWallet()) {
+            if (productCategory.toUpperCase().equals(userProfile.getListOneName().toUpperCase())) {
+                this.listOne.add(new Product(productName, productPrize));
+                this.listOneActualValue += productPrize;
+            } else if (productCategory.toUpperCase().equals(userProfile.getListTwoName().toUpperCase())) {
+                this.listTwo.add(new Product(productName, productPrize));
+                this.listTwoActualValue += productPrize;
+            } else if (productCategory.toUpperCase().equals(userProfile.getListThreeName().toUpperCase())) {
+                this.listThree.add(new Product(productName, productPrize));
+                this.listThreeActualValue += productPrize;
+            }
+
         }
     }
 

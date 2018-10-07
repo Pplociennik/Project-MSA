@@ -32,7 +32,7 @@ public class ApplicationConsoleController {
     }
 
     private void buyFromWallet(String category, String productName, double productPrize) {
-        this.userChosenProfile.getHistoryOfPeriods().get(userChosenProfile.getPeriodsCounter()).getPresentWeek().addProductToList(this.userChosenProfile, "<PORTFEL> " + productName, productPrize, category);
+        this.userChosenProfile.getHistoryOfPeriods().get(userChosenProfile.getPeriodsCounter()).getPresentWeek().addWalletElement(this.userChosenProfile, "<PORTFEL> " + productName, productPrize, category);
         this.userChosenProfile.setWallet(this.userChosenProfile.getWallet() - productPrize);
         this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() + productPrize);
     }
@@ -85,7 +85,7 @@ public class ApplicationConsoleController {
 
         System.out.println("ZALOGOWANO: " + userChosenProfile.getProfileName() + "\n\n\n");
 
-       this.userChosenProfile =  profileService.readProfile(this.userChosenProfile.getProfileName());
+        this.userChosenProfile = profileService.readProfile(this.userChosenProfile.getProfileName());
 
         if (userChosenProfile.getHistoryOfPeriods().isEmpty()) {
             System.out.println("1. Zrob pierwszy krok w strone oszczedzania! [w trakcie testów]");
@@ -189,11 +189,11 @@ public class ApplicationConsoleController {
 
                 addToList(productName, productPrize, cat);
 
-                try {
-                    profileService.saveProfile(this.userChosenProfile);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    profileService.saveProfile(this.userChosenProfile);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
                 weekScreen();
 
@@ -213,11 +213,11 @@ public class ApplicationConsoleController {
 
                 removeFromList(cat, number);
 
-                try {
-                    profileService.saveProfile(this.userChosenProfile);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    profileService.saveProfile(this.userChosenProfile);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
                 weekScreen();
                 break;
