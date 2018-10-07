@@ -1,6 +1,8 @@
 package users;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationConfig;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -153,7 +155,7 @@ public class ProfileService {
 
         saveProfileSettings(userProfile);
         if (!userProfile.getHistoryOfPeriods().isEmpty()) {
-            saveProfileHistory(userProfile);
+            //saveProfileHistory(userProfile);
         }
         saveProfileActualPeriodWeeks(userProfile);
         saveProfileActualWeekLists(userProfile);
@@ -262,6 +264,10 @@ public class ProfileService {
 
     public Profile readProfile(String profileName) {
         ObjectMapper mapper = new ObjectMapper();
+
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
+
         Profile tempChosenProfile = new Profile(profileName);
         Profile chosenProfile = new Profile("default");
 
