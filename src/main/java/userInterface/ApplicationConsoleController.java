@@ -32,7 +32,7 @@ public class ApplicationConsoleController {
     }
 
     private void buyFromWallet(String category, String productName, double productPrize) {
-        this.userChosenProfile.getHistoryOfPeriods().get(userChosenProfile.getPeriodsCounter()).getPresentWeek().addProductToList(this.userChosenProfile, productName, productPrize, category);
+        this.userChosenProfile.getHistoryOfPeriods().get(userChosenProfile.getPeriodsCounter()).getPresentWeek().addProductToList(this.userChosenProfile, "<PORTFEL> " + productName, productPrize, category);
         this.userChosenProfile.setWallet(this.userChosenProfile.getWallet() - productPrize);
         this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() + productPrize);
     }
@@ -122,7 +122,7 @@ public class ApplicationConsoleController {
                     this.userChosenProfile.getHistoryOfPeriods().add(new Period(weeks, userChosenProfile));
                     this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).calculateNewPeriodFunds(userChosenProfile, income);
                     this.userChosenProfile.incrementPeriodsCounter();
-                    profileService.saveProfile(this.userChosenProfile);
+//                    profileService.saveProfile(this.userChosenProfile);
                     weekScreen();
                 } else {
                     weekScreen();
@@ -242,11 +242,11 @@ public class ApplicationConsoleController {
 
                 buyFromWallet(cat, productName, productPrize);
 
-                try {
-                    profileService.saveProfile(this.userChosenProfile);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    profileService.saveProfile(this.userChosenProfile);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
                 weekScreen();
                 break;

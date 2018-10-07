@@ -77,6 +77,10 @@ public class Period {
         return weeks[index];
     }
 
+    public void setPresentWeekNumber(int presentWeekNumber) {
+        this.presentWeekNumber = presentWeekNumber;
+    }
+
     public void setWeeks(Week[] weeks) {
         this.weeks = weeks;
     }
