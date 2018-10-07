@@ -2,9 +2,10 @@ package app;
 
 public class ConsoleService {
 
-    public static void showError(String errorText) {
+    public static void showError(String errorText) throws InterruptedException {
         cleanConsole();
         System.out.print(errorText);
+        Thread.sleep(1000);
         cleanConsole();
     }
 

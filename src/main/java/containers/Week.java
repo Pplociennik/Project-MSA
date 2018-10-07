@@ -36,24 +36,24 @@ public class Week {
         this.actualSpendings = 0.0;
     }
 
-    public void addProductToList(Profile userProfile, String productName, double productPrize, String productCategory) {
+    public void addProductToList(Profile userProfile, String productName, double productPrize, String productCategory) throws InterruptedException {
         if (productCategory.toUpperCase().equals(userProfile.getListOneName().toUpperCase())) {
             if (listOneMAX > listOneActualValue + productPrize) {
-                this.listOne.add(new Product(productName, productPrize));
+                this.listOne.add(new Product(productName, productPrize, false));
                 this.listOneActualValue += productPrize;
             } else {
                 ConsoleService.showError("Zbyt drogie!");
             }
         } else if (productCategory.toUpperCase().equals(userProfile.getListTwoName().toUpperCase())) {
             if (listTwoMAX > listTwoActualValue + productPrize) {
-                this.listTwo.add(new Product(productName, productPrize));
+                this.listTwo.add(new Product(productName, productPrize, false));
                 this.listTwoActualValue += productPrize;
             } else {
                 ConsoleService.showError("Zbyt drogie!");
             }
         } else if (productCategory.toUpperCase().equals(userProfile.getListThreeName().toUpperCase())) {
             if (listThreeMAX > listThreeActualValue + productPrize) {
-                this.listThree.add(new Product(productName, productPrize));
+                this.listThree.add(new Product(productName, productPrize, false));
                 this.listThreeActualValue += productPrize;
             } else {
                 ConsoleService.showError("Zbyt drogie!");
@@ -63,40 +63,60 @@ public class Week {
         }
     }
 
-    public void addWalletElement(Profile userProfile, String productName, double productPrize, String productCategory) {
+    public void addWalletElement(Profile userProfile, String productName, double productPrize, String productCategory) throws InterruptedException {
         if (productPrize < userProfile.getWallet()) {
             if (productCategory.toUpperCase().equals(userProfile.getListOneName().toUpperCase())) {
-                this.listOne.add(new Product(productName, productPrize));
-                this.listOneActualValue += productPrize;
+                this.listOne.add(new Product(productName, productPrize, true));
+                // this.listOneActualValue += productPrize;
             } else if (productCategory.toUpperCase().equals(userProfile.getListTwoName().toUpperCase())) {
-                this.listTwo.add(new Product(productName, productPrize));
-                this.listTwoActualValue += productPrize;
+                this.listTwo.add(new Product(productName, productPrize, true));
+                //  this.listTwoActualValue += productPrize;
             } else if (productCategory.toUpperCase().equals(userProfile.getListThreeName().toUpperCase())) {
-                this.listThree.add(new Product(productName, productPrize));
-                this.listThreeActualValue += productPrize;
+                this.listThree.add(new Product(productName, productPrize, true));
+                //  this.listThreeActualValue += productPrize;
             }
 
+        } else {
+            ConsoleService.showError("Niewystarczające fundusze w portfelu!");
         }
     }
 
-    public void removeProductFromList(Profile userProfile, String category, int index) {
+    public void removeProductFromList(Profile userProfile, String category, int index) throws InterruptedException {
         if (index < 0) {
             ConsoleService.showError("Zły numer!");
         }
-        if (userProfile.getListOneName().equals(category)) {
+        if (userProfile.getListOneName().toUpperCase().equals(category.toUpperCase())) {
             if (index <= listOne.size()) {
+                if (listOne.get(index).isFromWallet()) {
+                    userProfile.setWallet(userProfile.getWallet() + listOne.get(index).getProductPrize());
+                } else {
+                    listOneActualValue = listOneActualValue - listOne.get(index).getProductPrize();
+                }
+                userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listOne.get(index).getProductPrize());
                 this.listOne.remove(index);
             } else {
                 ConsoleService.showError("Zły numer!");
             }
-        } else if (userProfile.getListTwoName().equals(category)) {
+        } else if (userProfile.getListTwoName().toUpperCase().equals(category.toUpperCase())) {
             if (index <= listTwo.size()) {
+                if (listTwo.get(index).isFromWallet()) {
+                    userProfile.setWallet(userProfile.getWallet() + listTwo.get(index).getProductPrize());
+                } else {
+                    listTwoActualValue = listTwoActualValue - listTwo.get(index).getProductPrize();
+                }
+                userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listTwo.get(index).getProductPrize());
                 this.listTwo.remove(index);
             } else {
                 ConsoleService.showError("Zły numer!");
             }
-        } else if (userProfile.getListThreeName().equals(category)) {
+        } else if (userProfile.getListThreeName().toUpperCase().equals(category.toUpperCase())) {
             if (index <= listThree.size()) {
+                if (listThree.get(index).isFromWallet()) {
+                    userProfile.setWallet(userProfile.getWallet() + listThree.get(index).getProductPrize());
+                } else {
+                    listThreeActualValue = listThreeActualValue - listThree.get(index).getProductPrize();
+                }
+                userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listThree.get(index).getProductPrize());
                 this.listThree.remove(index);
             } else {
                 ConsoleService.showError("Zły numer!");

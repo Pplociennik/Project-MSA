@@ -22,23 +22,23 @@ public class ApplicationConsoleController {
     public ApplicationConsoleController() {
     }
 
-    private void addToList(String productName, double productPrize, String category) {
+    private void addToList(String productName, double productPrize, String category) throws InterruptedException {
         this.userChosenProfile.getHistoryOfPeriods().get(userChosenProfile.getPeriodsCounter()).getPresentWeek().addProductToList(this.userChosenProfile, productName, productPrize, category);
         this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() + productPrize);
     }
 
-    private void removeFromList(String category, int index) {
+    private void removeFromList(String category, int index) throws InterruptedException {
         this.userChosenProfile.getHistoryOfPeriods().get(userChosenProfile.getPeriodsCounter()).getPresentWeek().removeProductFromList(this.userChosenProfile, category, index);
     }
 
-    private void buyFromWallet(String category, String productName, double productPrize) {
+    private void buyFromWallet(String category, String productName, double productPrize) throws InterruptedException {
         this.userChosenProfile.getHistoryOfPeriods().get(userChosenProfile.getPeriodsCounter()).getPresentWeek().addWalletElement(this.userChosenProfile, "<PORTFEL> " + productName, productPrize, category);
-        this.userChosenProfile.setWallet(this.userChosenProfile.getWallet() - productPrize);
-        this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() + productPrize);
+        if(productPrize < this.userChosenProfile.getWallet()) {this.userChosenProfile.setWallet(this.userChosenProfile.getWallet() - productPrize);}
+       // this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() + productPrize);
     }
 
 
-    public void profilesMenu() throws IOException {
+    public void profilesMenu() throws IOException, InterruptedException {
         int choose;
         profileService.readProfilesList();
         ConsoleService.cleanConsole();
@@ -80,7 +80,7 @@ public class ApplicationConsoleController {
     }
 
 
-    private void mainMenu() throws IOException {
+    private void mainMenu() throws IOException, InterruptedException {
         ConsoleService.cleanConsole();
 
         System.out.println("ZALOGOWANO: " + userChosenProfile.getProfileName() + "\n\n\n");
@@ -131,7 +131,7 @@ public class ApplicationConsoleController {
         }
     }
 
-    private void weekScreen() throws IOException {
+    private void weekScreen() throws IOException, InterruptedException {
         ConsoleService.cleanConsole();
         Week presentWeek = this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek();
 
