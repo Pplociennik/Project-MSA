@@ -10,8 +10,5 @@
         <module name="Project-MSA2" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="Project-MSA2" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>

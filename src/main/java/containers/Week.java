@@ -87,36 +87,36 @@ public class Week {
         }
         if (userProfile.getListOneName().toUpperCase().equals(category.toUpperCase())) {
             if (index <= listOne.size()) {
-                if (listOne.get(index).isFromWallet()) {
+                if (listOne.get(index).isFromWallet() == true) {
                     userProfile.setWallet(userProfile.getWallet() + listOne.get(index).getProductPrize());
                 } else {
                     listOneActualValue = listOneActualValue - listOne.get(index).getProductPrize();
                 }
-                userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listOne.get(index).getProductPrize());
+                //userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listOne.get(index).getProductPrize());
                 this.listOne.remove(index);
             } else {
                 ConsoleService.showError("Zły numer!");
             }
         } else if (userProfile.getListTwoName().toUpperCase().equals(category.toUpperCase())) {
             if (index <= listTwo.size()) {
-                if (listTwo.get(index).isFromWallet()) {
+                if (listTwo.get(index).isFromWallet() == true) {
                     userProfile.setWallet(userProfile.getWallet() + listTwo.get(index).getProductPrize());
                 } else {
                     listTwoActualValue = listTwoActualValue - listTwo.get(index).getProductPrize();
                 }
-                userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listTwo.get(index).getProductPrize());
+               // userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listTwo.get(index).getProductPrize());
                 this.listTwo.remove(index);
             } else {
                 ConsoleService.showError("Zły numer!");
             }
         } else if (userProfile.getListThreeName().toUpperCase().equals(category.toUpperCase())) {
             if (index <= listThree.size()) {
-                if (listThree.get(index).isFromWallet()) {
+                if (listThree.get(index).isFromWallet() == true) {
                     userProfile.setWallet(userProfile.getWallet() + listThree.get(index).getProductPrize());
                 } else {
                     listThreeActualValue = listThreeActualValue - listThree.get(index).getProductPrize();
                 }
-                userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listThree.get(index).getProductPrize());
+               // userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listThree.get(index).getProductPrize());
                 this.listThree.remove(index);
             } else {
                 ConsoleService.showError("Zły numer!");
