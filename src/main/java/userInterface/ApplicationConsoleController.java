@@ -197,11 +197,7 @@ public class ApplicationConsoleController {
 
                 addToList(productName, productPrize, cat);
 
-//                try {
-//                    profileService.saveProfile(this.userChosenProfile);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                profileService.saveProfile(this.userChosenProfile);
 
                 weekScreen();
 
@@ -221,11 +217,7 @@ public class ApplicationConsoleController {
 
                 removeFromList(cat, number);
 
-//                try {
-//                    profileService.saveProfile(this.userChosenProfile);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                profileService.saveProfile(this.userChosenProfile);
 
                 weekScreen();
                 break;
@@ -250,11 +242,7 @@ public class ApplicationConsoleController {
 
                 buyFromWallet(cat, productName, productPrize);
 
-//                try {
-//                    profileService.saveProfile(this.userChosenProfile);
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                profileService.saveProfile(this.userChosenProfile);
 
                 weekScreen();
                 break;
