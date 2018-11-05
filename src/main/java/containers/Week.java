@@ -105,9 +105,9 @@ public class Week {
             if (index <= listTwo.size()) {
                 if (listTwo.get(index).isFromWallet() == true) {
                     userProfile.setWallet(userProfile.getWallet() + listTwo.get(index).getProductPrize());
-                    actualSpendings -= listTwo.get(index).getProductPrize();
                 } else {
                     listTwoActualValue = listTwoActualValue - listTwo.get(index).getProductPrize();
+                    actualSpendings -= listTwo.get(index).getProductPrize();
                 }
                // userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listTwo.get(index).getProductPrize());
                 this.listTwo.remove(index);
@@ -118,9 +118,9 @@ public class Week {
             if (index <= listThree.size()) {
                 if (listThree.get(index).isFromWallet() == true) {
                     userProfile.setWallet(userProfile.getWallet() + listThree.get(index).getProductPrize());
-                    actualSpendings -= listThree.get(index).getProductPrize();
                 } else {
                     listThreeActualValue = listThreeActualValue - listThree.get(index).getProductPrize();
+                    actualSpendings -= listThree.get(index).getProductPrize();
                 }
                // userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listThree.get(index).getProductPrize());
                 this.listThree.remove(index);
