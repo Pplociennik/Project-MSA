@@ -347,6 +347,8 @@ public class ProfileService {
     }
 
     public void removeProfile(int index) {
+        File delete = new File(profiles.get(index) + "_data.bin");
+        delete.delete();
         this.profiles.remove(index);
         this.saveProfilesList();
     }
