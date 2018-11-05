@@ -72,7 +72,11 @@ public class ApplicationConsoleController {
                 ConsoleService.cleanConsole();
                 if (!profileService.getProfiles().isEmpty()) {
 
-                    this.userChosenProfile = profileService.readProfile(profileService.getProfiles().get(choose));
+                    try {
+                        this.userChosenProfile = profileService.readProfile(profileService.getProfiles().get(choose));
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
                 mainMenu();
                 break;
@@ -85,7 +89,11 @@ public class ApplicationConsoleController {
 
         System.out.println("ZALOGOWANO: " + userChosenProfile.getProfileName() + "\n\n\n");
 
-        this.userChosenProfile = profileService.readProfile(this.userChosenProfile.getProfileName());
+        try {
+            this.userChosenProfile = profileService.readProfile(this.userChosenProfile.getProfileName());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
         if (userChosenProfile.getHistoryOfPeriods().isEmpty()) {
             System.out.println("1. Zrob pierwszy krok w strone oszczedzania! [w trakcie testów]");

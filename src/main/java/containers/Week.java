@@ -36,6 +36,9 @@ public class Week {
         this.actualSpendings = 0.0;
     }
 
+    public Week() {
+    }
+
     public void addProductToList(Profile userProfile, String productName, double productPrize, String productCategory) throws InterruptedException {
         if (productCategory.toUpperCase().equals(userProfile.getListOneName().toUpperCase())) {
             if (listOneMAX > listOneActualValue + productPrize) {

@@ -12,6 +12,9 @@ public class Product {
         this.fromWallet = isFromWallet;
     }
 
+    public Product() {
+    }
+
     public String getProductName() {
         return productName;
     }

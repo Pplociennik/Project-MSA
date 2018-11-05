@@ -3,8 +3,9 @@ package users;
 import containers.Period;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Profile {
+public class Profile implements Serializable{
 
     /* profile info */
     private String profileName;
@@ -33,6 +34,7 @@ public class Profile {
     private void addToWallet(double value) {
         wallet += value;
     }
+
 
 
     public Profile(String profileName) {

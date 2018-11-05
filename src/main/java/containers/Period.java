@@ -28,6 +28,9 @@ public class Period {
         userProfile.getHistoryOfPeriods().add(this);
     }
 
+    public Period() {
+    }
+
     public void calculateNewPeriodFunds(Profile userProfile, double income) {
         double tempWallet = 0.0;
         double tempRest = 0.0;
