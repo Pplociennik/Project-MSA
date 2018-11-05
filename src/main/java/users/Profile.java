@@ -36,7 +36,6 @@ public class Profile implements Serializable {
     }
 
 
-
     public Profile(String profileName) {
         this.profileName = profileName;
         this.periodsCounter = 0;

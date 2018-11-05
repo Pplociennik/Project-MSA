@@ -113,7 +113,7 @@ public class Week implements Serializable {
                     listTwoActualValue = listTwoActualValue - listTwo.get(index).getProductPrize();
                     actualSpendings -= listTwo.get(index).getProductPrize();
                 }
-               // userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listTwo.get(index).getProductPrize());
+                // userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listTwo.get(index).getProductPrize());
                 this.listTwo.remove(index);
             } else {
                 ConsoleService.showError("Zły numer!");
@@ -126,7 +126,7 @@ public class Week implements Serializable {
                     listThreeActualValue = listThreeActualValue - listThree.get(index).getProductPrize();
                     actualSpendings -= listThree.get(index).getProductPrize();
                 }
-               // userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listThree.get(index).getProductPrize());
+                // userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listThree.get(index).getProductPrize());
                 this.listThree.remove(index);
             } else {
                 ConsoleService.showError("Zły numer!");

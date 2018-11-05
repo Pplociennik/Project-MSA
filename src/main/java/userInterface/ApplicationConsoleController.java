@@ -33,8 +33,10 @@ public class ApplicationConsoleController {
 
     private void buyFromWallet(String category, String productName, double productPrize) throws InterruptedException {
         this.userChosenProfile.getHistoryOfPeriods().get(userChosenProfile.getPeriodsCounter()).getPresentWeek().addWalletElement(this.userChosenProfile, "<PORTFEL> " + productName, productPrize, category);
-        if(productPrize < this.userChosenProfile.getWallet()) {this.userChosenProfile.setWallet(this.userChosenProfile.getWallet() - productPrize);}
-       // this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() + productPrize);
+        if (productPrize < this.userChosenProfile.getWallet()) {
+            this.userChosenProfile.setWallet(this.userChosenProfile.getWallet() - productPrize);
+        }
+        // this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() + productPrize);
     }
 
 
