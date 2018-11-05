@@ -2,7 +2,9 @@ package containers;
 
 import users.Profile;
 
-public class Period {
+import java.io.Serializable;
+
+public class Period implements Serializable {
 
     private Week[] weeks;
     private boolean[] weekDone;

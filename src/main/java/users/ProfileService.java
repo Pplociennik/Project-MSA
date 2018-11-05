@@ -313,7 +313,7 @@ public class ProfileService {
         Profile loadedProfile = null;
 
         try (ObjectInputStream inputStream = new ObjectInputStream(new FileInputStream(profileName + "_data.bin"))) {
-            loadedProfile = (Profile) inputStream.readObject();
+           loadedProfile = (Profile) inputStream.readObject();
 
             return loadedProfile;
         }

@@ -130,7 +130,7 @@ public class ApplicationConsoleController {
                     this.userChosenProfile.getHistoryOfPeriods().add(new Period(weeks, userChosenProfile));
                     this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).calculateNewPeriodFunds(userChosenProfile, income);
                     this.userChosenProfile.incrementPeriodsCounter();
-//                    profileService.saveProfile(this.userChosenProfile);
+                    profileService.saveProfile(this.userChosenProfile);
                     weekScreen();
                 } else {
                     weekScreen();

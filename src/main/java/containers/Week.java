@@ -2,11 +2,12 @@ package containers;
 
 import users.Profile;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import app.ConsoleService;
 
-public class Week {
+public class Week implements Serializable {
 
     private ArrayList<Product> listOne;
     private ArrayList<Product> listTwo;

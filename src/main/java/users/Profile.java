@@ -5,7 +5,7 @@ import containers.Period;
 import java.util.ArrayList;
 import java.io.Serializable;
 
-public class Profile implements Serializable{
+public class Profile implements Serializable {
 
     /* profile info */
     private String profileName;
