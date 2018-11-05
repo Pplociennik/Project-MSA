@@ -24,7 +24,7 @@ public class ApplicationConsoleController {
 
     private void addToList(String productName, double productPrize, String category) throws InterruptedException {
         this.userChosenProfile.getHistoryOfPeriods().get(userChosenProfile.getPeriodsCounter()).getPresentWeek().addProductToList(this.userChosenProfile, productName, productPrize, category);
-        this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() + productPrize);
+        //this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() + productPrize);
     }
 
     private void removeFromList(String category, int index) throws InterruptedException {

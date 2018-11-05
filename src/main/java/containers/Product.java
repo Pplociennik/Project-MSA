@@ -9,6 +9,7 @@ public class Product {
     public Product(String productName, double productPrize, boolean isFromWallet) {
         this.productName = productName;
         this.productPrize = productPrize;
+        this.fromWallet = isFromWallet;
     }
 
     public String getProductName() {

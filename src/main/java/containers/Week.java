@@ -41,6 +41,7 @@ public class Week {
             if (listOneMAX > listOneActualValue + productPrize) {
                 this.listOne.add(new Product(productName, productPrize, false));
                 this.listOneActualValue += productPrize;
+                this.actualSpendings += productPrize;
             } else {
                 ConsoleService.showError("Zbyt drogie!");
             }
@@ -48,6 +49,7 @@ public class Week {
             if (listTwoMAX > listTwoActualValue + productPrize) {
                 this.listTwo.add(new Product(productName, productPrize, false));
                 this.listTwoActualValue += productPrize;
+                this.actualSpendings += productPrize;
             } else {
                 ConsoleService.showError("Zbyt drogie!");
             }
@@ -55,6 +57,7 @@ public class Week {
             if (listThreeMAX > listThreeActualValue + productPrize) {
                 this.listThree.add(new Product(productName, productPrize, false));
                 this.listThreeActualValue += productPrize;
+                this.actualSpendings += productPrize;
             } else {
                 ConsoleService.showError("Zbyt drogie!");
             }
@@ -91,6 +94,7 @@ public class Week {
                     userProfile.setWallet(userProfile.getWallet() + listOne.get(index).getProductPrize());
                 } else {
                     listOneActualValue = listOneActualValue - listOne.get(index).getProductPrize();
+                    actualSpendings -= listOne.get(index).getProductPrize();
                 }
                 //userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(userProfile.getHistoryOfPeriods().get(userProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() - listOne.get(index).getProductPrize());
                 this.listOne.remove(index);
@@ -101,6 +105,7 @@ public class Week {
             if (index <= listTwo.size()) {
                 if (listTwo.get(index).isFromWallet() == true) {
                     userProfile.setWallet(userProfile.getWallet() + listTwo.get(index).getProductPrize());
+                    actualSpendings -= listTwo.get(index).getProductPrize();
                 } else {
                     listTwoActualValue = listTwoActualValue - listTwo.get(index).getProductPrize();
                 }
@@ -113,6 +118,7 @@ public class Week {
             if (index <= listThree.size()) {
                 if (listThree.get(index).isFromWallet() == true) {
                     userProfile.setWallet(userProfile.getWallet() + listThree.get(index).getProductPrize());
+                    actualSpendings -= listThree.get(index).getProductPrize();
                 } else {
                     listThreeActualValue = listThreeActualValue - listThree.get(index).getProductPrize();
                 }
