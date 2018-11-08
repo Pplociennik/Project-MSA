@@ -50,7 +50,7 @@ public class Profile implements Serializable {
         this.listTwoPercentage = 0.25;
         this.listThreePercentage = 0.40;
         this.walletPercentage = 0.60;
-        this.walletFreeValue = 1000;
+        this.walletFreeValue = 100;
         this.walletCalculationType = "%";
     }
 

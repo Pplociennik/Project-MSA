@@ -104,7 +104,7 @@ public class ApplicationConsoleController {
         }
 
         System.out.println("2. Wyświetl historię [niedostępne]");
-        System.out.println("3. Ustawienia profilu [niedostępne]\n\n");
+        System.out.println("3. Ustawienia profilu [w trakcie testów]\n\n");
 
         System.out.println("4. Wyloguj profil \n5. Wyjście \n Wybór: ");
 
@@ -279,7 +279,7 @@ public class ApplicationConsoleController {
         if(calculationType.equals("Procent")) {System.out.println("8. Przelicznik kwoty wolnej: [" + userChosenProfile.getWalletPercentage() + "]\n");}
         else {System.out.println("8. Wartość kwoty wolnej: [" + userChosenProfile.getWalletFreeValue() + "]\n");}
 
-        System.out.println("9. Wróć\n");
+        System.out.println("10. Przywróć ustawienia domyślne\n9. Wróć\n");
 
         System.out.print("Wybór: ");
 
@@ -359,7 +359,7 @@ public class ApplicationConsoleController {
                 System.out.print("Wybierz typ przeliczania kwoty wolnej [Procent/Wartość]: ");
                 String choose = new String(scan.nextLine());
 
-                if((!choose.toUpperCase().equals("PROCENT")) || (!choose.toUpperCase().equals("WARTOSC"))) {ConsoleService.showError("Nie ma takiego typu!"); settingsMenu();}
+                if((!choose.toUpperCase().equals("PROCENT")) && (!choose.toUpperCase().equals("WARTOŚĆ"))) {ConsoleService.showError("Nie ma takiego typu!"); settingsMenu();}
 
                 if(choose.toUpperCase().equals("PROCENT")) {userChosenProfile.setWalletCalculationType("%"); profileService.saveProfile(userChosenProfile);}
                 else {userChosenProfile.setWalletCalculationType("zł"); profileService.saveProfile(userChosenProfile);}
@@ -385,6 +385,30 @@ public class ApplicationConsoleController {
             case 9:
                 ConsoleService.cleanConsole();
                 mainMenu();
+                break;
+            case 10:
+                ConsoleService.cleanConsole();
+                System.out.println("Czy na pewno chcesz przywrócić ustawienia domyślne? [Y/N]");
+
+                String commit = new String(scan.nextLine());
+
+                if(!commit.toUpperCase().equals("Y") && !commit.toUpperCase().equals("N")) {ConsoleService.showError("Zła odpowiedź!"); settingsMenu();}
+
+                if(commit.equals("N")) {settingsMenu();}
+                else {
+                    userChosenProfile.setListOneName("Żywność");
+                    userChosenProfile.setListTwoName("Napoje");
+                    userChosenProfile.setListThreeName("Wydatki");
+                    userChosenProfile.setListOnePercentage(0.35);
+                    userChosenProfile.setListTwoPercentage(0.25);
+                    userChosenProfile.setListThreePercentage(0.4);
+                    userChosenProfile.setWalletCalculationType("%");
+                    userChosenProfile.setWalletPercentage(0.6);
+                    userChosenProfile.setWalletFreeValue(100);
+                }
+                profileService.saveProfile(userChosenProfile);
+                settingsMenu();
+                break;
         }
     }
 

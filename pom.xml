@@ -6,7 +6,7 @@
 
     <groupId>Money</groupId>
     <artifactId>Project-MSA</artifactId>
-    <version>0.00.00-SNAPSHOT</version>
+    <version>0.01.02-SNAPSHOT</version>
     <build>
         <plugins>
             <plugin>
