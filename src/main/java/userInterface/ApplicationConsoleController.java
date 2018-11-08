@@ -138,6 +138,9 @@ public class ApplicationConsoleController {
                     weekScreen();
                 }
                 break;
+            case 3:
+                settingsMenu();
+                break;
         }
     }
 
@@ -252,6 +255,136 @@ public class ApplicationConsoleController {
             case 4:
                 mainMenu();
                 break;
+        }
+    }
+
+    private void settingsMenu() throws InterruptedException, IOException {
+        ConsoleService.cleanConsole();
+
+        String calculationType = new String("defaultType");
+        if(userChosenProfile.getWalletCalculationType().equals("%")) {calculationType = "Procent";}
+        else {calculationType = "Wartość";}
+
+        System.out.println("USTAWIENIA\n");
+
+        System.out.println("1. Nazwa listy '1': [" + userChosenProfile.getListOneName() + "]");
+        System.out.println("2. Nazwa listy '2': [" + userChosenProfile.getListTwoName() + "]");
+        System.out.println("3. Nazwa listy '3': [" + userChosenProfile.getListThreeName() + "]\n");
+
+        System.out.println("4. Przelicznik listy '1': [" + userChosenProfile.getListOnePercentage() + "]");
+        System.out.println("5. Przelicznik listy '2': [" + userChosenProfile.getListTwoPercentage() + "]");
+        System.out.println("6. Przelicznik listy '3': [" + userChosenProfile.getListThreePercentage() + "]\n");
+
+        System.out.println("7. Typ przeliczania kwoty wolnej: [" + calculationType + "]");
+        if(calculationType.equals("Procent")) {System.out.println("8. Przelicznik kwoty wolnej: [" + userChosenProfile.getWalletPercentage() + "]\n");}
+        else {System.out.println("8. Wartość kwoty wolnej: [" + userChosenProfile.getWalletFreeValue() + "]\n");}
+
+        System.out.println("9. Wróć\n");
+
+        System.out.print("Wybór: ");
+
+        Scanner scanner = new Scanner(System.in);
+        Scanner scan = new Scanner(System.in);
+
+        int entry = scanner.nextInt();
+
+        switch(entry) {
+            default:
+                ConsoleService.showError("Zły numer!");
+                settingsMenu();
+                break;
+            case 1:
+                ConsoleService.cleanConsole();
+                System.out.print("Wpisz nową nazwę: ");
+                String newName = new String(scan.nextLine());
+
+                userChosenProfile.setListOneName(newName);
+                profileService.saveProfile(userChosenProfile);
+                settingsMenu();
+                break;
+            case 2:
+                ConsoleService.cleanConsole();
+                System.out.print("Wpisz nową nazwę: ");
+                String newName2 = new String(scan.nextLine());
+
+                userChosenProfile.setListTwoName(newName2);
+                profileService.saveProfile(userChosenProfile);
+                settingsMenu();
+                break;
+            case 3:
+                ConsoleService.cleanConsole();
+                System.out.print("Wpisz nową nazwę: ");
+                String newName3 = new String(scan.nextLine());
+
+                userChosenProfile.setListThreeName(newName3);
+                profileService.saveProfile(userChosenProfile);
+                settingsMenu();
+                break;
+            case 4:
+                ConsoleService.cleanConsole();
+                System.out.print("Podaj nowy przelicznik: [>0 i <1]");
+                Double counter = Double.parseDouble(scan.nextLine());
+
+                if(counter > 1 || counter < 0) {ConsoleService.showError("Zła wartość!"); settingsMenu();}
+
+                userChosenProfile.setListOnePercentage(counter);
+                profileService.saveProfile(userChosenProfile);
+                settingsMenu();
+                break;
+            case 5:
+                ConsoleService.cleanConsole();
+                System.out.print("Podaj nowy przelicznik: [>0 i <1]");
+                Double counter2 = Double.parseDouble(scan.nextLine());
+
+                if(counter2 > 1 || counter2 < 0) {ConsoleService.showError("Zła wartość!"); settingsMenu();}
+
+                userChosenProfile.setListTwoPercentage(counter2);
+                profileService.saveProfile(userChosenProfile);
+                settingsMenu();
+                break;
+            case 6:
+                ConsoleService.cleanConsole();
+                System.out.print("Podaj nowy przelicznik: [>0 i <1]");
+                Double counter3 = Double.parseDouble(scan.nextLine());
+
+                if(counter3 > 1 || counter3 < 0) {ConsoleService.showError("Zła wartość!"); settingsMenu();}
+
+
+                userChosenProfile.setListThreePercentage(counter3);
+                profileService.saveProfile(userChosenProfile);
+                settingsMenu();
+                break;
+            case 7:
+                ConsoleService.cleanConsole();
+                System.out.print("Wybierz typ przeliczania kwoty wolnej [Procent/Wartość]: ");
+                String choose = new String(scan.nextLine());
+
+                if((!choose.toUpperCase().equals("PROCENT")) || (!choose.toUpperCase().equals("WARTOSC"))) {ConsoleService.showError("Nie ma takiego typu!"); settingsMenu();}
+
+                if(choose.toUpperCase().equals("PROCENT")) {userChosenProfile.setWalletCalculationType("%"); profileService.saveProfile(userChosenProfile);}
+                else {userChosenProfile.setWalletCalculationType("zł"); profileService.saveProfile(userChosenProfile);}
+
+                settingsMenu();
+                break;
+            case 8:
+                ConsoleService.cleanConsole();
+
+                if(calculationType.equals("Procent")) {System.out.print("Podaj nowy przelicznik kwoty wolnej: [>0 i <1]");}
+                else {System.out.print("Podaj wartość kwoty wolnej: ");}
+
+                Double counterFree = Double.parseDouble(scan.nextLine());
+
+                if((calculationType.equals("Procent") && counterFree < 0) || (calculationType.equals("Wartość") && counterFree > 1)) {ConsoleService.showError("Zła wartość!");settingsMenu();}
+
+                if(calculationType.equals("Procent")) {userChosenProfile.setWalletCalculationType("%");}
+                else {userChosenProfile.setWalletCalculationType("zł");}
+
+                profileService.saveProfile(userChosenProfile);
+                settingsMenu();
+                break;
+            case 9:
+                ConsoleService.cleanConsole();
+                mainMenu();
         }
     }
 
