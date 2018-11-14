@@ -39,6 +39,31 @@ public class ApplicationConsoleController {
         // this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().setActualSpendings(this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).getPresentWeek().getActualSpendings() + productPrize);
     }
 
+    private void startNewPeriod() {
+        ConsoleService.cleanConsole();
+        System.out.println("Podaj długość okresu (w tygodniach): ");
+        Scanner scan = new Scanner(System.in);
+        int weeks = scan.nextInt();
+
+        ConsoleService.cleanConsole();
+
+        System.out.println("Podaj dochód w okresie: ");
+        double income = Double.parseDouble(scan.next());
+
+        this.userChosenProfile.getHistoryOfPeriods().add(new Period(weeks, userChosenProfile));
+        this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).calculateNewPeriodFunds(userChosenProfile, income);
+        this.userChosenProfile.incrementPeriodsCounter();
+
+       // startNewWeek();
+        profileService.saveProfile(this.userChosenProfile);
+    }
+
+    private void startNewWeek() {
+
+        userChosenProfile.getPresentPeriod().incrementPresentWeekNumber();
+        profileService.saveProfile(this.userChosenProfile);
+    }
+
 
     public void profilesMenu() throws IOException, InterruptedException {
         int choose;
@@ -119,20 +144,7 @@ public class ApplicationConsoleController {
                 break;
             case 1:
                 if (this.userChosenProfile.getHistoryOfPeriods().isEmpty()) {
-                    ConsoleService.cleanConsole();
-                    System.out.println("Podaj długość okresu (w tygodniach): ");
-                    Scanner scan = new Scanner(System.in);
-                    int weeks = scan.nextInt();
-
-                    ConsoleService.cleanConsole();
-
-                    System.out.println("Podaj dochód w okresie: ");
-                    double income = Double.parseDouble(scan.next());
-
-                    this.userChosenProfile.getHistoryOfPeriods().add(new Period(weeks, userChosenProfile));
-                    this.userChosenProfile.getHistoryOfPeriods().get(this.userChosenProfile.getPeriodsCounter()).calculateNewPeriodFunds(userChosenProfile, income);
-                    this.userChosenProfile.incrementPeriodsCounter();
-                    profileService.saveProfile(this.userChosenProfile);
+                    startNewPeriod();
                     weekScreen();
                 } else {
                     weekScreen();
@@ -177,7 +189,8 @@ public class ApplicationConsoleController {
         System.out.println("1. Dodaj produkt");
         System.out.println("2. Usuń produkt");
         System.out.println("3. Kup z portfela");
-        System.out.println("4. Wyjdz do menu \nWybór: ");
+        System.out.println("4. Wyjdz do menu");
+        System.out.println("5. Zakończ tydzień/okres [niedostępne]\nWybór:");
 
         Scanner entry = new Scanner(System.in);
         int choose = entry.nextInt();
@@ -255,6 +268,18 @@ public class ApplicationConsoleController {
             case 4:
                 mainMenu();
                 break;
+            case 5:
+                if(userChosenProfile.getPresentPeriod().isPeriodFinished() == true) {
+                    startNewPeriod();
+                    userChosenProfile.getPresentPeriod().setPresentWeekNumber(0);
+                    profileService.saveProfile(this.userChosenProfile);
+                    weekScreen();
+                }
+                else {
+                    startNewWeek();
+                    profileService.saveProfile(this.userChosenProfile);
+                    weekScreen();
+                }
         }
     }
 
@@ -362,22 +387,22 @@ public class ApplicationConsoleController {
                 if((!choose.toUpperCase().equals("PROCENT")) && (!choose.toUpperCase().equals("WARTOŚĆ"))) {ConsoleService.showError("Nie ma takiego typu!"); settingsMenu();}
 
                 if(choose.toUpperCase().equals("PROCENT")) {userChosenProfile.setWalletCalculationType("%"); profileService.saveProfile(userChosenProfile);}
-                else {userChosenProfile.setWalletCalculationType("zł"); profileService.saveProfile(userChosenProfile);}
+                else {userChosenProfile.setWalletCalculationType("zl"); profileService.saveProfile(userChosenProfile);}
 
                 settingsMenu();
                 break;
             case 8:
                 ConsoleService.cleanConsole();
 
-                if(calculationType.equals("Procent")) {System.out.print("Podaj nowy przelicznik kwoty wolnej: [>0 i <1]");}
+                if(calculationType.equals("Procent")) {System.out.print("Podaj nowy przelicznik kwoty wolnej [>0 i <1]: ");}
                 else {System.out.print("Podaj wartość kwoty wolnej: ");}
 
                 Double counterFree = Double.parseDouble(scan.nextLine());
 
-                if((calculationType.equals("Procent") && counterFree < 0) || (calculationType.equals("Wartość") && counterFree > 1)) {ConsoleService.showError("Zła wartość!");settingsMenu();}
-
-                if(calculationType.equals("Procent")) {userChosenProfile.setWalletCalculationType("%");}
-                else {userChosenProfile.setWalletCalculationType("zł");}
+                if((calculationType.equals("Procent") && counterFree < 0) || (calculationType.equals("Procent") && counterFree > 1)) {ConsoleService.showError("Zła wartość!");settingsMenu();}
+                if(calculationType.equals("Procent")) {userChosenProfile.setWalletPercentage(counterFree);}
+                else if(calculationType.equals("Wartość")) {userChosenProfile.setWalletFreeValue(counterFree);}
+                else {ConsoleService.showError("Nie ma takiego typu!");settingsMenu();}
 
                 profileService.saveProfile(userChosenProfile);
                 settingsMenu();

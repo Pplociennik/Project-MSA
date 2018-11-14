@@ -1,5 +1,6 @@
 package containers;
 
+import app.ConsoleService;
 import users.Profile;
 
 import java.io.Serializable;
@@ -25,6 +26,7 @@ public class Period implements Serializable {
 
         for (int i = 0; i < length; i++) {
             weeks[i] = new Week(userProfile);
+            weeks[i].setListOneMAX(weeks[0].getListOneMAX());
         }
 
         userProfile.getHistoryOfPeriods().add(this);
@@ -127,5 +129,16 @@ public class Period implements Serializable {
         }
 
         return status;
+    }
+
+    public boolean isPeriodFinished() {
+        if(this.presentWeekNumber == weekDone.length) {
+            return true;
+        }
+        else { return false;}
+    }
+
+    public void incrementPresentWeekNumber() {
+        this.presentWeekNumber++;
     }
 }

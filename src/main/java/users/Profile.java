@@ -191,4 +191,8 @@ public class Profile implements Serializable {
     public void setWalletCalculationType(String walletCalculationType) {
         this.walletCalculationType = walletCalculationType;
     }
+
+    public Period getPresentPeriod() {
+        return this.historyOfPeriods.get(this.periodsCounter);
+    }
 }
